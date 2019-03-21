@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+const devConfig = require('../config/webpack.dev.config');
+const devServerConfig = require('../config/webpack.dev-server.config');
+const { SyncHook } = require('tapable');
+const chalk = require('chalk');
+
+/**
+ * Modify the configuration by adding hot module reloading
+ */
+const modifyConfig = (devConfig) => {
+    return {
+        ...devConfig,
+        entry: Object.keys(devConfig.entry).reduce((acc, name) => {
+            return {
+                ...acc,
+                [name]: [
+                    'react-dev-utils/webpackHotDevClient',
+                    'webpack/hot/dev-server',
+                    ...devConfig.entry[name]
+                ],
+            };
+        }, {}),
+        plugins: [
+            ...devConfig.plugins,
+            new webpack.HotModuleReplacementPlugin()
+        ],
+    };
+}
+
+const compiler = webpack( modifyConfig(devConfig) );
+
+compiler.hooks.devServerWrite = new SyncHook(['type', 'data']);
+
+compiler.hooks.devServerWrite.tap('DevServer', (type, data) => {
+    devServer.sockWrite(devServer.sockets, type, data);
+})
+
+const devServer = new WebpackDevServer(compiler, devServerConfig);
+devServer.listen(devServerConfig.port, devServerConfig.host, err => {
+    if(err) {
+		console.log(chalk.red(err));
+		return;
+	}
+	let firstDone = true;
+	compiler.hooks.done.tap('DevServer', () => {
+		if(firstDone) {
+			firstDone = false;
+			setTimeout(() => {
+				console.log('');
+				console.log(chalk.green(`🎉  Started server on port ${devServerConfig.port}`));
+			}, 100);
+		}
+	});
+
+});
+
+['SIGINT', 'SIGTERM'].forEach(function(sig) {
+    process.on(sig, function() {
+        devServer.close();
+        process.exit();
+    });
+});

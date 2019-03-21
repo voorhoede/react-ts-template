@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+const connect = require('connect');
+const static = require('serve-static');
+const cypress = require('cypress');
+const history = require('connect-history-api-fallback');
+const path = require('path');
+
+const port = 8000;
+
+const app = connect();
+app.use(static(path.resolve(__dirname, '../dist')));
+app.use(history());
+
+const server = app.listen(port, () => {
+    return cypress.run({
+        config: {
+            baseUrl: `http://0.0.0.0:${port}`,
+            video: false,
+        }
+    })
+    .then(() => {
+        server.close();
+    });
+});
+

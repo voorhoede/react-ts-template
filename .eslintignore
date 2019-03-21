@@ -1,0 +1,8 @@
+*.d.ts
+scripts/
+config/
+dist/
+cypress/
+*.test.ts
+*.test.tsx
+postcss.config.js

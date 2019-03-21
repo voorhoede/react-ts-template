@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+      "typeRoots": [
+        "node_modules/@types",
+        "types"
+      ],
+      "skipLibCheck": true,
+      "target": "es6",
+      "module": "esnext",
+      "strict": true,
+      "jsx": "react",
+      "importHelpers": true,
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
+      "experimentalDecorators": true,
+      "sourceMap": true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": [
+          "src/*"
+        ]
+      },
+      "lib": [
+        "es2015",
+        "dom",
+        "dom.iterable",
+        "es7",
+      ]
+    },
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "src/**/*.vue",
+      "tests/**/*.ts",
+      "tests/**/*.tsx"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }

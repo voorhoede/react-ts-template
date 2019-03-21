@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+dist/
+*.css.d.ts
+.vscode
+cypress/videos
+cypress/screenshots
+.env
+.sonarlint

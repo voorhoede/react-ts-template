@@ -1,0 +1,47 @@
+{
+    "extends": [
+      "airbnb",
+      "plugin:@typescript-eslint/recommended",
+      "prettier",
+      "prettier/@typescript-eslint",
+      "prettier/react"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "prettier",
+      "react-hooks"
+    ],
+    "env": {
+      "es6": true,
+      "browser": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+      },
+      "project": "./tsconfig.json"
+    },
+    "rules": {
+      "indent": [1, 4],
+      "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+      "react/jsx-indent": [1, 4],
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "@typescript-eslint/interface-name-prefix": 0,
+      "@typescript-eslint/prefer-interface": 0,
+      "@typescript-eslint/explicit-function-return-type": 0,
+      "prettier/prettier": "error",
+      "import/no-extraneous-dependencies": 1,
+      "no-undef": 0,
+      "no-plusplus": 0
+    },
+    "settings": {
+      "import/resolver": {
+        "webpack": {
+          "config": "./config/webpack.dev.config.js"
+        }
+      }
+    }
+}
