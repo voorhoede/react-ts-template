@@ -1,3 +1,4 @@
+const paths = require('./paths');
 
 module.exports = (isProduction) => [
     {
@@ -10,11 +11,11 @@ module.exports = (isProduction) => [
                     cacheDirectory: true,
                 }
             },
-            {
+            !isProduction && {
                 loader: 'graphql-loader',
                 options: {
                     schemaInput: 'http://localhost:4000/graphql',
-                    schemaOutput: './src/types/schema.d.ts'
+                    schemaOutput: paths.src('types/schema.d.ts')
                 }
             }
         ]

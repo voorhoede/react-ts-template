@@ -25,6 +25,7 @@ type Location = {
   name?: Maybe<Scalars['String']>,
   create?: Maybe<Scalars['Date']>,
   screens?: Maybe<Array<Screen>>,
+  screenCount?: Maybe<Scalars['Int']>,
 };
 
 type Mutation = {
@@ -46,7 +47,9 @@ type Project = {
 type Query = {
   projects: Array<Project>,
   locations: Array<Location>,
+  loadLocation?: Maybe<Location>,
   screens: Array<Screen>,
+  roles: Array<Role>,
 };
 
 
@@ -55,8 +58,18 @@ type QueryProjectsArgs = {
 };
 
 
+type QueryLoadLocationArgs = {
+  id?: Maybe<Scalars['ID']>
+};
+
+
 type QueryScreensArgs = {
   locationID?: Maybe<Scalars['ID']>
+};
+
+type Role = {
+  id: Scalars['ID'],
+  name: Scalars['String'],
 };
 
 type Screen = {

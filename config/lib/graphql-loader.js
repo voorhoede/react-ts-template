@@ -44,37 +44,7 @@ async function outputSchemaToGlobalTypes({ schemaInput, schemaOutput }) {
     return schema;
 }
 
-let schemaPromise = null;
-
-module.exports = async function (source, map) {
-    const options = getOptions(this);
-
-    console.log(options);
-
-    if (this.cacheable) {
-        this.cacheable();
-    }
-
-    this.addDependency(this.resourcePath);
-
-    const callback = this.async();
-
-    if(!schemaPromise) {
-        schemaPromise = outputSchemaToGlobalTypes(options);
-    }
-
-    const outFile = `${this.resourcePath}.tsx`;
-
-    let schema;
-    try {
-        schema = await schemaPromise;
-    }
-    catch(e) {
-        schemaPromise = null;
-        callback(new Error('Unable to download schema'));
-        return;
-    }
-
+async function outputDocumentsToTsx({ source, schema, outFile }) {
     const documents = await loadDocuments(source);
 
     let code = await codegen({
@@ -107,6 +77,42 @@ module.exports = async function (source, map) {
         .replace(/Maybe/g, 'GraphQL.Maybe');
 
     await fsWriteAsync(outFile, code);
+}
+
+let schemaPromise = null;
+
+module.exports = async function (source, map) {
+    const options = getOptions(this);
+
+    if (this.cacheable) {
+        this.cacheable();
+    }
+
+    this.addDependency(this.resourcePath);
+
+    const callback = this.async();
+
+    if(!schemaPromise) {
+        schemaPromise = outputSchemaToGlobalTypes(options)
+    }
+
+    let schema;
+    try {
+        schema = await schemaPromise;
+    }
+    catch(e) {
+        schemaPromise = null;
+        callback(new Error('Unable to download schema'));
+        return;
+    }
+
+    this.addDependency(options.schemaOutput);
+
+    const code = await outputDocumentsToTsx({
+        outFile: `${this.resourcePath}.tsx`,
+        source,
+        schema,
+    });
 
     callback(null, code, map);
 }

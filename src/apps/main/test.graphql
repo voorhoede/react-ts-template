@@ -11,4 +11,8 @@ query GetProjects {
             }
         }
     }
+    roles {
+        id
+        name
+    }
 }

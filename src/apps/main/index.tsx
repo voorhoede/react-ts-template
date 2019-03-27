@@ -6,7 +6,11 @@ import { GetProjectsComponent } from "./test.graphql";
 ReactDOM.render(
     <App>
         <GetProjectsComponent>
-            {() => {
+            {({ data }) => {
+                if (!data) {
+                    return <div>No data</div>;
+                }
+                console.log(data.roles[0].name);
                 return <div />;
             }}
         </GetProjectsComponent>

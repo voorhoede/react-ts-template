@@ -1,7 +1,7 @@
 export type GetProjectsQueryVariables = {};
 
 
-export type GetProjectsQuery = ({ __typename?: 'Query' } & { projects: Array<({ __typename?: 'Project' } & Pick<GraphQL.Project, 'id' | 'name'> & { locations: Array<({ __typename?: 'Location' } & Pick<GraphQL.Location, 'name' | 'id' | 'create'> & { screens: GraphQL.Maybe<Array<({ __typename?: 'Screen' } & Pick<GraphQL.Screen, 'temperature'>)>> })> })> });
+export type GetProjectsQuery = ({ __typename?: 'Query' } & { projects: Array<({ __typename?: 'Project' } & Pick<GraphQL.Project, 'id' | 'name'> & { locations: Array<({ __typename?: 'Location' } & Pick<GraphQL.Location, 'name' | 'id' | 'create'> & { screens: GraphQL.Maybe<Array<({ __typename?: 'Screen' } & Pick<GraphQL.Screen, 'temperature'>)>> })> })>, roles: Array<({ __typename?: 'Role' } & Pick<GraphQL.Role, 'id' | 'name'>)> });
 
 import { gql } from 'graphql.macro';
 import * as React from 'react';
@@ -20,6 +20,10 @@ export const GetProjectsDocument = gql`
         temperature
       }
     }
+  }
+  roles {
+    id
+    name
   }
 }
     `;
