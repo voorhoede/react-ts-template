@@ -6,3 +6,5 @@ cypress/
 *.test.ts
 *.test.tsx
 postcss.config.js
+*.graphql.tsx
+apollo.config.js

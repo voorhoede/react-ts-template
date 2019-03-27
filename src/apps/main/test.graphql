@@ -1,0 +1,14 @@
+query GetProjects {
+    projects(id: "1") {
+        id
+        name
+        locations {
+            name
+            id
+            create
+            screens {
+                temperature
+            }
+        }
+    }
+}
