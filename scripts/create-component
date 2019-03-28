@@ -13,7 +13,7 @@ const withStyle = process.argv[3] === '--style';
 
 const compVarName = pascalCase(componentName);
 const compFileName = kebabCase(componentName);
-const format = src => prettier.format(src.join('\n'), { parser: 'babel' });
+const format = src => prettier.format(src.join('\n'), { parser: 'typescript' });
 const compOutDir = `${outputDir}/${compFileName}`;
 
 if(!fs.existsSync(outputDir)) {
@@ -40,6 +40,7 @@ if(withStyle) {
 fs.writeFileSync(`${compOutDir}/${compFileName}.tsx`, format([
     `import React from "react";`,
     `${ withStyle ? `import styles from "./${compFileName}.css";` : '' }`,
+    ``,
     `type Props = {};`,
     ``,
     `const ${compVarName} = (props: Props) => (`,
