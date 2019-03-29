@@ -8,12 +8,16 @@ const pascalCase = require('pascal-case');
 const kebabCase = require('kebab-case');
 
 const outputDir = path.resolve(__dirname, '../src/components');
-const componentName = process.argv[2];
-const withStyle = process.argv[3] === '--style';
+
+const args = process.argv.slice(2);
+
+const componentName = args[0];
+const withStyle = args.includes('--style');
+const withStorybook = args.includes('--storybook');
 
 const compVarName = pascalCase(componentName);
 const compFileName = kebabCase(componentName);
-const format = src => prettier.format(src.join('\n'), { parser: 'typescript' });
+const format = src => prettier.format(src.join('\n'), { parser: 'typescript', tabWidth: 4 });
 const compOutDir = `${outputDir}/${compFileName}`;
 
 if(!fs.existsSync(outputDir)) {
@@ -34,6 +38,19 @@ if(withStyle) {
         `    readonly "root": string;`,
         `};`,
         `export = styles;`,
+    ]));
+}
+
+if(withStorybook) {
+    fs.writeFileSync(`${compOutDir}/${compFileName}.stories.tsx`, format([
+        `import React from "react";`,
+        `import { storiesOf } from "@storybook/react";`,
+        `import ${compVarName} from "./${compFileName}";`,
+        ``,
+        `storiesOf("${compVarName}", module)`,
+        `   .add("default", () => {`,
+        `       return <${compVarName} />`,
+        `   })`,
     ]));
 }
 

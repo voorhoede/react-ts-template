@@ -56,6 +56,10 @@ If your component requires css:
 
 `$ npm run create-component {your-component-name} -- --style`
 
+If you want to create a storybook for your component:
+
+`$ npm run create-component {your-component-name} -- --storybook`
+
 All components in the `src/components` folder should be *reusable*. 
 Reusable means that they do not depend on global state or have side effects (do server requests for example).
 
@@ -126,3 +130,16 @@ Use the following commands in CI/CD's:
 `$ npm run test:e2e`
 
 *(This requires a distribution build)*
+
+## Storybook
+
+The project includes a demo environment where all visual components and their different variations can be tested in isolation.
+This environment is created using [Storybook](https://storybook.js.org)
+
+Use the following command to launch the demo environment in development mode:
+
+`$ npm run start:storybook`
+
+Use the following command to create a static build of your Storybook
+
+`$ npm run build:storybook`
