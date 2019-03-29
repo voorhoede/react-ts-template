@@ -27,10 +27,11 @@ type SpriteSymbol = {
     id: string,
     viewBox: string,
     url: string,
+    toString(): string,
 }
 
 declare module '*.svg' {
-	const symbol: any;
+	const symbol: SpriteSymbol;
     export default symbol;
 }
 
