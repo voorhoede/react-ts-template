@@ -10,7 +10,7 @@
         "css-lint": "stylelint ./src/**/*.css",
         "ts-lint:write": "eslint --fix -c .eslintrc ./src/**/*.ts ./src/**/*.tsx",
         "css-lint:write": "stylelint --fix ./src/**/*.css",
-        "test:unit": "jest",
+        "test:unit": "jest --passWithNoTests",
         "test:e2e": "./scripts/run-e2e",
         "test:e2e-dev": "cypress open",
         "test": "npm run test:unit && npm run test:e2e",
@@ -44,7 +44,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "test && lint-staged"
+            "pre-commit": "npm run test:unit && lint-staged"
         }
     },
     "lint-staged": {
