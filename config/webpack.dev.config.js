@@ -33,7 +33,6 @@ module.exports = merge(commonConfig, {
             configFile: paths.root('.stylelintrc'),
             files: '**/*.css',
             fix: true,
-            lintDirtyModulesOnly: true
         }),
     ]
 });
