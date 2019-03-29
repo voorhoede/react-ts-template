@@ -1,7 +1,7 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
+const paths = require('./paths');
 
 /**
  * defineApp allows you to easily add support for multi-page applications
@@ -44,14 +44,9 @@ module.exports = (configFile) => {
 
         plugins.push(
             new HTMLWebpackPlugin({
-
-                /*
-                    The HTMLWebpackPlugin will include all the chunks for all the apps.
-                    But what you want is that a app only includes the app chunk and the shared chunks.
-                */
                 chunks: [name],
                 filename: isIndex ? 'index.html' : `${name}/index.html`,
-                template: path.resolve(__dirname, `../../src/apps/${name}/index.ejs`),
+                template: paths.src(`./apps/${name}/index.ejs`),
                 inject: true
             })
         );
