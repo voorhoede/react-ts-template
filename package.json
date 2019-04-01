@@ -4,7 +4,7 @@
     "description": "A opinionated template for React applications using TypeScript",
     "private": true,
     "scripts": {
-        "start": "./scripts/start-server",
+        "dev": "./scripts/start-server",
         "build": "webpack --config ./config/webpack.prod.config.js",
         "ts-lint": "eslint -c .eslintrc ./src/**/*.ts ./src/**/*.tsx",
         "css-lint": "stylelint ./src/**/*.css",

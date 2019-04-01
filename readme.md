@@ -19,11 +19,11 @@ Install NPM modules:
 ## Start development
 
 To build the app and start a watcher, use:
-`$ npm start`
+`$ npm run dev`
 
 ## Scripts
 
-- `start` (starts the development server)
+- `dev` (starts the development server)
 - `build` (outputs a distribution build in the dist folder)
 - `ts-lint` (lints the TypeScript files but does not correct mistakes)
 - `ts-lint:write` (lints the TypeScript files and correct mistakes)
